@@ -1,5 +1,4 @@
 import argparse
-# argparse模块定义了需要什么参数
 import os
 import shutil
 import time
@@ -30,29 +29,20 @@ import networks.resnetInfoPro_DFLPlus
 
 
 parser = argparse.ArgumentParser(description='InfoPro-PyTorch')
-# description要在参数帮助之前显示的文本
 parser.add_argument('--dataset', default='stl10', type=str,
                     help='dataset: [cifar10|stl10|svhn]')
-# argparse.ArgumentParser.add_argument将各个参数规范附加到解释器，数据集默认使用cifar10，类型为字符串
-# 整个argparse.ArgumentParser已经被命名为parser了
 parser.add_argument('--model', default='resnet', type=str,
                     help='resnet is supported currently')
-# 同上，Model默认使用resnet，类型为字符串
 parser.add_argument('--layers', default=0, type=int,
                     help='total number of layers (have to be explicitly given!)')
-# 同上，层layers默认是0，数据类型为整型
 parser.add_argument('--droprate', default=0.0, type=float,
                     help='dropout probability (default: 0.0)')
-# 同上，下降率默认为0，数据类型为浮点数
 parser.add_argument('--no-augment', dest='augment', action='store_false',
                     help='whether to use standard augmentation (default: True)')
-# dest 设置参数在代码中的变量名；action指定如何处理参数，当参数在命令行中出现时使用的动作基本类型：可选'store', 'store_const', 'store_true', 'append', 'append_const', 'count', 'help', 'version'
-
 parser.set_defaults(augment=True)
 
 parser.add_argument('--checkpoint', default='checkpoint', type=str, metavar='PATH',
                     help='path to save checkpoint (default: checkpoint)')
-# metavar参数中备用的显示名称
 parser.add_argument('--resume', default='', type=str,
                     help='path to latest checkpoint (default: none)')
 
@@ -138,16 +128,13 @@ record_file = record_path + '/training_process.txt'
 accuracy_file = record_path + '/accuracy_epoch.txt'
 loss_file = record_path + '/loss_epoch.txt'
 check_point = os.path.join(record_path, args.checkpoint)
-# 以上这几行都是在记录训练过程
+
 
 def main():
     global best_prec1
     best_prec1 = 0
     global val_acc
     val_acc = []
-    # global全局语句是适用于整个当前代码块的声明。这意味着列出的标识符将被解释为全局标识符。如果没有全局变量，就不可能赋值给全局变量，尽管自由变量可能指的是全局变量，而不是声明为全局变量。
-    # 全局语句中列出的名称不得在该全局语句之前的同一代码块中使用。
-    # 全局语句中列出的名称不能定义为形式参数，也不能定义为for循环控制目标、类定义、函数定义或导入语句中的名称。
     class_num = args.dataset in ['cifar10', 'sl10', 'svhn'] and 10 or 100
 
     if 'cifar' in args.dataset:
