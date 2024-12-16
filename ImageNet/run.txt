@@ -1,0 +1,14 @@
+CUDA_VISIBLE_DEVICES=0 python imagenet_DDP.py ./data/ --arch resnet34 --net resnet34 --workers 32 --epochs 150 --batch-size 128 --lr 0.05 --momentum 0.9 --momentum2 0.995 --local_module_num 16 --world-size 2  --rank 1 --dist-url 'tcp://127.0.0.1:29500' --dist-backend 'nccl' --gpu 0 --multiprocessing-distributed --ixx_r 5 --ixy_r 0.5
+
+CUDA_VISIBLE_DEVICES=1 python imagenet_DDP.py ./data/ --arch resnet34 --net resnet34 --workers 32 --epochs 150 --batch-size 128 --lr 0.05 --momentum 0.9 --momentum2 0.995 --local_module_num 16 --world-size 2  --rank 1 --dist-url 'tcp://127.0.0.1:29500' --dist-backend 'nccl' --gpu 1 --multiprocessing-distributed --ixx_r 5 --ixy_r 0.5
+
+
+没注释：
+CUDA_VISIBLE_DEVICES=0 python imagenet_DDP.py ./data/ --arch resnet101 --net resnet101 --workers 32 --epochs 150 --batch-size 128 --lr 0.05 --momentum 0.9 --momentum2 0.995 --local_module_num 33 --resume ./outputs/checkpoint.pth.tar --world-size 1  --rank 0 --dist-url 'tcp://127.0.0.1:29503' --dist-backend 'nccl' --multiprocessing-distributed --ixx_r 5 --ixy_r 0.5 
+
+回溯：
+CUDA_VISIBLE_DEVICES=0 python imagenet_DDP.py ./data/ --arch resnet34 --net resnet34 --workers 32 --epochs 150 --batch-size 128 --lr 0.05 --momentum 0.9 --momentum2 0.995 --local_module_num 16 --world-size 1  --rank 0 --dist-url 'tcp://127.0.0.1:29503' --dist-backend 'nccl' --multiprocessing-distributed --ixx_r 5 --ixy_r 0.5 
+
+
+
+CUDA_VISIBLE_DEVICES=0 python imagenet_DDP.py ./data/ --arch resnet34 --net resnet34 --workers 32 --epochs 151 --batch-size 128 --lr 0 --momentum 0.9 --momentum2 0.995 --local_module_num 1 --resume ./E2E_r34/outputs/checkpoint.pth.tar --world-size 1  --rank 0 --dist-url 'tcp://127.0.0.1:29503' --dist-backend 'nccl' --multiprocessing-distributed --ixx_r 5 --ixy_r 0.5 
