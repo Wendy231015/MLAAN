@@ -5,20 +5,6 @@ CUDA_VISIBLE_DEVICES=0 python train.py --dataset cifar10 --model resnet --layers
 CUDA_VISIBLE_DEVICES=0 python train.py --dataset cifar10 --model resnet --layers 32 --droprate 0.0 --no 0 --cos_lr --local_module_num 8  --local_loss_mode cross_entropy --aux_net_widen 1 --aux_net_feature_dim 128 --ixx_1 5 --ixy_1 0.5 --ixx_2 0   --ixy_2 0 --aux_net_config 1c2f --momentum 0.995 &&
 
 
-CUDA_VISIBLE_DEVICES=0 python train.py --dataset svhn --model resnet --layers 32 --droprate 0.0 --no 0 --cos_lr --local_module_num 15  --local_loss_mode cross_entropy --aux_net_widen 1 --aux_net_feature_dim 128 --ixx_1 5 --ixy_1 0.5 --ixx_2 0   --ixy_2 0 --aux_net_config 1c2f --momentum 0.995 && 
-
-
-
-
-CUDA_VISIBLE_DEVICES=0 python train.py --dataset cifar10 --model resnet --layers 32 --droprate 0.0 --no 0 --cos_lr --local_module_num 8  --local_loss_mode cross_entropy --aux_net_widen 1 --aux_net_feature_dim 128 --ixx_1 5 --ixy_1 0.5 --ixx_2 0   --ixy_2 0 --aux_net_config 1c2f --momentum 0.99 &&
-CUDA_VISIBLE_DEVICES=0 python train.py --dataset cifar10 --model resnet --layers 32 --droprate 0.0 --no 0 --cos_lr --local_module_num 15  --local_loss_mode cross_entropy --aux_net_widen 1 --aux_net_feature_dim 128 --ixx_1 5 --ixy_1 0.5 --ixx_2 0   --ixy_2 0 --aux_net_config 1c2f --momentum 0.99 
-
-
-
-
-
-CUDA_VISIBLE_DEVICES=0 python train2.py --dataset cifar10 --no 0 --cos_lr --local_module_num 11  --local_loss_mode cross_entropy --aux_net_widen 1 --aux_net_feature_dim 128 --ixx_1 5 --ixy_1 0.5 --ixx_2 0   --ixy_2 0 --momentum 0.999
-
 
 
 
