@@ -19,13 +19,6 @@ model_urls = {
 }
 
 
-# k2_infopro = {
-#     'resnet101': 0,
-#     'resnet152': 5,
-#     'resnext101_32x8d': 2,
-# }
-
-
 
 from .configs import Layer
 from .configAux_new import Layer_Aux
@@ -193,15 +186,6 @@ class ResNet(nn.Module):
                 nn.init.constant_(m.weight, 1)
                 nn.init.constant_(m.bias, 0)
 
-        # self.net_layer_dict = net_layer_dict
-        # for layer_index in range(self.net_layer_dict['layer_num']):
-        #     exec('self.fc' + str(layer_index)
-        #          + " = nn.Linear(self.net_layer_dict['feature_num_list'][layer_index], num_classes)")
-
-        # Zero-initialize the last BN in each residual branch,
-        # so that the residual branch starts with zeros, and each residual block behaves like an identity.
-        # This improves the model by 0.2~0.3% according to https://arxiv.org/abs/1706.02677
-        if zero_init_residual:
             for m in self.modules():
                 if isinstance(m, Bottleneck):
                     nn.init.constant_(m.bn3.weight, 0)
@@ -282,7 +266,6 @@ class ResNet(nn.Module):
                 Update_temp.append(eval("self.layer" + str(self.aux_config[i][j][0]))[self.aux_config[i][j][1]])
             Update_Net.append(nn.Sequential(*Update_temp))
             Update_temp = nn.ModuleList([])
-            # 这两行的缩进一定要注意，这是决定你的尺寸能不能match的主要原因
         return Update_Net
 
 
