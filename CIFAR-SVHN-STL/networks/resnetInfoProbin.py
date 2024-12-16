@@ -141,9 +141,7 @@ class InfoProResNet(nn.Module):
             for module_index in range(1,4):
                 for layer_index in range(len(self.layer1)):
 
-                    # exec('self.aux_classifier_' + str(module_index) + '_' + str(layer_index) + '_' + str(j) +
-                    #      '= AuxClassifier(wide_list[-1], class_num=class_num, '
-                    #      'widen=aux_net_widen, feature_dim=aux_net_feature_dim)')
+                    
                     exec('self.y_classifier_' + str(module_index) + '_' + str(layer_index) + '_' + str(j) +
                          '= AuxClassifier(wide_list[-1], net_config=aux_net_config, '
                          'loss_mode=local_loss_mode,class_num=class_num, '
@@ -155,13 +153,6 @@ class InfoProResNet(nn.Module):
         for module_index in range(1,4):
             for layer_index in range(len(self.layer1)):
 
-#                 exec('self.decoder_' + str(module_index) + '_' + str(layer_index) +
-#                      '= Decoder(wide_list[module_index], image_size, widen=aux_net_widen)')
-
-#                 exec('self.aux_classifier_' + str(module_index) + '_' + str(layer_index) +
-#                      '= AuxClassifier(wide_list[module_index], net_config=aux_net_config, '
-#                      'loss_mode=local_loss_mode, class_num=class_num, '
-#                      'widen=aux_net_widen, feature_dim=aux_net_feature_dim)')
                 exec('self.x_classifier_' + str(module_index) + '_' + str(layer_index) +
                      '= AuxClassifier(wide_list[module_index], class_num=class_num, '
                      'widen=aux_net_widen, feature_dim=aux_net_feature_dim)')
@@ -244,10 +235,7 @@ class InfoProResNet(nn.Module):
         Aux_Net = nn.ModuleList([])
         Aux_temp = nn.ModuleList([])
 
-        # self.Aug_Net = nn.ModuleList([])
-        # self.EMA_Net = nn.ModuleList([])
-        # 这两行创建的是空列表，根本就没用上
-
+        
         for i in range(self.local_module_num - 1):
             for j in range(len(self.aux_config[i])):
                 Aux_temp.append(
@@ -255,8 +243,7 @@ class InfoProResNet(nn.Module):
             Aux_Net.append(nn.Sequential(*Aux_temp))
             Aux_temp = nn.ModuleList([])
         EMA_Net = copy.deepcopy(Aux_Net)
-        # EMA_Net = copy.deepcopy(Aux_Net)
-        # 这一句要在循环外面
+   
         return Aux_Net, EMA_Net
 
 
@@ -317,31 +304,14 @@ class InfoProResNet(nn.Module):
                     # lo, la = self.infopro_config[i]
                     if i == 0:
                         x = self.Encoder_Net[i](x)
-                        # y = self.Aug_Net[i](x) + self.EMA_Net[i](x)
-                        
-                        # ratio = lo / (self.local_module_num - 2) if self.local_module_num > 2 else 0
-                        # ixx_r = ixx_1 * (1 - ratio) + ixx_2 * ratio
-                        # ixy_r = ixy_1 * (1 - ratio) + ixy_2 * ratio
-                        # loss_ixx = eval('self.decoder_' + str(lo) + '_' + str(la))(y,self._image_restore(img))
-                        # loss_ixy = eval('self.aux_classifier_' + str(lo) + '_' + str(la))(y,target)
-                        # loss = ixx_r * loss_ixx + ixy_r * loss_ixy
-                        
                         x = x.detach()
-                        # y = y.detach()
+      
 
                     elif i == 1:
                         x = self.Encoder_Net[i](x)
-                        # y = self.Aug_Net[i](x) + self.EMA_Net[i](x)
-                        
-                        # ratio = lo / (self.local_module_num - 2) if self.local_module_num > 2 else 0
-                        # ixx_r = ixx_1 * (1 - ratio) + ixx_2 * ratio
-                        # ixy_r = ixy_1 * (1 - ratio) + ixy_2 * ratio
-                        # loss_ixx = eval('self.decoder_' + str(lo) + '_' + str(la))(y,self._image_restore(img))
-                        # loss_ixy = eval('self.aux_classifier_' + str(lo) + '_' + str(la))(y,target)
-                        # loss = ixx_r * loss_ixx + ixy_r * loss_ixy
-                        
+                     
                         x = x.detach()
-                        # y = y.detach()
+             
 
                     else:
                         x = self.Encoder_Net[i](x)
@@ -360,15 +330,7 @@ class InfoProResNet(nn.Module):
                         ratio = local_x / (self.local_module_num - 2) if self.local_module_num > 2 else 0
                         ixx_r = ixx_1 * (1 - ratio) + ixx_2 * ratio
                         ixy_r = ixy_1 * (1 - ratio) + ixy_2 * ratio
-                        # loss_ixx = eval('self.decoder_' + str(lo) + '_' + str(la))(y,self._image_restore(img))
-                        # loss_ixy = eval('self.aux_classifier_' + str(lo) + '_' + str(la))(y,target)
-                        # loss = ixx_r * loss_ixx + ixy_r * loss_ixy
-                        
-                        # loss_x1 = eval('self.decoder_' + str(lo) + '_' + str(la))(x,self._image_restore(img))
-                        # loss_x2 = eval('self.aux_classifier_' + str(lo) + '_' + str(la))(x,target)
-                        # loss_y1 = eval('self.decoder_' + str(lo) + '_' + str(la))(z,self._image_restore(img))
-                        # loss_y2 = eval('self.aux_classifier_' + str(lo) + '_' + str(la))(z,target)
-                        # loss = (ixx_r * loss_x1 + ixy_r * loss_x2) * self.wx + (ixx_r * loss_y1 + ixy_r * loss_y2) * self.wy
+                   
                         loss_x1 = eval('self.x_decoder_' + str(local_x) + '_' + str(layer_x))(x, self._image_restore(img))
                         loss_x2 = eval('self.x_classifier_' + str(local_x) + '_' + str(layer_x))(x, target)
                         loss_x = ixx_r * loss_x1 + ixy_r * loss_x2
