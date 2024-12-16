@@ -56,27 +56,6 @@ parser.add_argument('--momentum2', default=0.995, type=float, metavar='M',
 parser.add_argument('--local_module_num', default=1, type=int, metavar='M',
                     help='numbers of local modules')
 
-
-
-
-# parser.add_argument('--balanced_memory', dest='balanced_memory', action='store_true',
-#                     help='whether to split local modules with balanced GPU memory (InfoPro* in the paper)')
-# parser.add_argument('--model', default='resnet', type=str,
-#                     help='resnet is supported currently')
-# parser.add_argument('--checkpoint', default='checkpoint', type=str, metavar='PATH',
-#                     help='path to save checkpoint (default: checkpoint)')
-# parser.add_argument('--layers', default=0, type=int,
-#                     help='total number of layers (have to be explicitly given!)')
-# parser.add_argument('--resume', default='', type=str,
-#                     help='path to latest checkpoint (default: none)')
-# parser.add_argument('--name', default='', type=str,
-#                     help='name of experiment')
-# parser.add_argument('--no', default='1', type=str,
-#                     help='index of the experiment (for recording convenience)')
-
-
-
-
 parser.add_argument('--wd', '--weight-decay', default=1e-4, type=float,
                     metavar='W', help='weight decay (default: 1e-4)',
                     dest='weight_decay')
