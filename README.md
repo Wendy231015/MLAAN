@@ -27,13 +27,10 @@ CUDA_VISIBLE_DEVICES=0 python imagenet_DDP.py ./data/ --arch resnet34 --net resn
 Citation:
 --------
 ```bash
-@misc{zhang2024mlaanscalingsupervisedlocal,
-      title={MLAAN: Scaling Supervised Local Learning with Multilaminar Leap Augmented Auxiliary Network}, 
-      author={Yuming Zhang and Shouxin Zhang and Peizhe Wang and Feiyu Zhu and Dongzhi Guan and Junhao Su and Jiabin Liu and Changpeng Cai},
-      year={2024},
-      eprint={2406.16633},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV},
-      url={https://arxiv.org/abs/2406.16633}, 
+@article{zhang2024mlaan,
+  title={Mlaan: Scaling supervised local learning with multilaminar leap augmented auxiliary network},
+  author={Zhang, Yuming and Zhang, Shouxin and Wang, Peizhe and Zhu, Feiyu and Guan, Dongzhi and Su, Junhao and Liu, Jiabin and Cai, Changpeng},
+  journal={arXiv preprint arXiv:2406.16633},
+  year={2024}
 }
 ```
